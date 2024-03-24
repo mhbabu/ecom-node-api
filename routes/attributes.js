@@ -6,6 +6,7 @@ const express = require("express");
 const router = express.Router();
 
 router.get("/", async (req, res) => {
+  console.log('index...');
   const attributes = await Attribute.find().select("-__v").sort("name");
   res.send(attributes);
 });
@@ -14,6 +15,11 @@ router.post("/", async (req, res) => {
   console.log(req.body);
   const { error } = validate(req.body);
   if (error) return res.status(400).send(error.details[0].message);
+
+  const existingAttribute = await Attribute.findOne({ name: req.body.name });
+  if (existingAttribute) {
+    return res.status(400).send("This name already exists");
+  }
 
   let attributes = new Attribute({
     name: req.body.name,

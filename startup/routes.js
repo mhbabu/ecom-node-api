@@ -11,8 +11,8 @@ const error = require('../middleware/error');
 
 module.exports = function(app) {
   app.use(express.json());
-  app.use('/api/attributes', attributes);
-  app.use('/api/subattributes', subattributes);
+  app.use('/api/product/attributes', attributes);
+  app.use('/api/product/subattributes', subattributes);
   // app.use('/api/customers', customers);
   // app.use('/api/movies', movies);
   // app.use('/api/rentals', rentals);
